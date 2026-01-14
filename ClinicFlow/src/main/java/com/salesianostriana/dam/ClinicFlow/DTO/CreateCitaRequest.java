@@ -1,4 +1,10 @@
 package com.salesianostriana.dam.ClinicFlow.DTO;
 
-public record CreateCitaRequest() {
+import java.time.LocalDateTime;
+
+public record CreateCitaRequest(
+        LocalDateTime fechaHora,
+        Long idPaciente,
+        Long idProfesional
+) {
 }
