@@ -9,6 +9,7 @@ import org.hibernate.proxy.HibernateProxy;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -27,6 +28,9 @@ public class Paciente {
     private String nombre;
     private String email;
     private LocalDate fechaNacimiento;
+
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
+    private List<Cita> citas;
 
     @Override
     public final boolean equals(Object o) {

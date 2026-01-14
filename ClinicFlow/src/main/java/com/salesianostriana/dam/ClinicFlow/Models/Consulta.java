@@ -27,6 +27,9 @@ public class Consulta {
     private String diagnostico;
     private LocalDate fecha;
 
+    @OneToOne()
+    private Cita cita;
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

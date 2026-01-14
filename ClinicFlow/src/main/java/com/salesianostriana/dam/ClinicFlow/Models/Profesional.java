@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -24,6 +25,9 @@ public class Profesional {
 
     private String nombre;
     private String especialidad;
+
+    @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY)
+    private List<Cita> citas;
 
     @Override
     public final boolean equals(Object o) {

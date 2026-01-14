@@ -27,6 +27,17 @@ public class Cita {
     private LocalDateTime fechaHora;
     private EstadoCita estado;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_cita")
+    private Paciente paciente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profesional_cita")
+    private Profesional profesional;
+
+    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL)
+    private Consulta consulta;
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
