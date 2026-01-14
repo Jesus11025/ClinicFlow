@@ -1,6 +1,11 @@
 package com.salesianostriana.dam.ClinicFlow.DTO;
 
-public record CreateConsultaRequest(
+import java.time.LocalDate;
 
+public record CreateConsultaRequest(
+    LocalDate fecha,
+    String diagnostico,
+    String observaciones,
+    Long idCita
 ) {
 }
