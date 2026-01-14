@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.ClinicFlow.services;
 
+import com.salesianostriana.dam.ClinicFlow.DTO.CitaResponse;
 import com.salesianostriana.dam.ClinicFlow.Enum.EstadoCita;
 import com.salesianostriana.dam.ClinicFlow.Models.Cita;
 import com.salesianostriana.dam.ClinicFlow.Models.Profesional;
@@ -18,9 +19,11 @@ public class CitaService {
     private final CitaRepository citaRepository;
     private final ProfesionalRepository profesionalRepository;
 
-    public Optional<Cita> crearCita(Cita cita, Profesional profesional) {
+    public Optional<CitaResponse> crearCita(Cita cita, Long idProfesional) {
+        Profesional profesional = profesionalRepository.findById(idProfesional)
+                .orElseThrow(() -> new RuntimeException("Profesional no encontrado"));
 
-        if(profesionalRepository.existsByProfesionalIdAndHora(profesional.getId(), cita.getFechaHora())) {
+        if(profesionalRepository.existsByProfesionalIdAndHora(idProfesional, cita.getFechaHora())) {
             throw new RuntimeException("El profesional ya tiene una cita a esa hora.");
         }
 
@@ -32,7 +35,8 @@ public class CitaService {
             throw new RuntimeException("No se pueden crear citas en el pasado.");
         }
 
-        return Optional.of(citaRepository.save(cita));
+        citaRepository.save(cita);
+        return Optional.of(CitaResponse.fromCita(cita));
     }
 
     public void cancelarCita(Long idCita) {
